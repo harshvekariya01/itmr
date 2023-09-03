@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>Project List</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/favicon_io/site.webmanifest">
+    <script src="https://kit.fontawesome.com/fa68abc7e7.js" crossorigin="anonymous"></script>
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <!-- datapicker CSS
+		============================================ -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Custom styles for this template -->
+    <link href="/static/css/navbar-top-fixed.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="d-flex flex-column flex-md-row align-items-center border-bottom">
+        <a href="https://itmrresearch.com/" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
+            <img src="/static/images/logo_1.png">
+        </a>
+
+        <nav class="d-inline-flex mt-3 mt-md-0 ms-md-auto">
+            <a class="nav-item{{dashboard}}" href="{% url 'mainapp:projectlist' %}"><i class="fas fa-home fa-2x"></i><BR>Dashboard</a> {% if user_dep == '1' %}<a class="nav-item{{userlist}}" href="{% url 'mainapp:userlist' %}"><i class="fas fa-user fa-2x"></i><BR>Users</a>
+            <a class="nav-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-globe fa-2x"></i><BR>Redirects</a>{% endif %}
+            <a class="nav-item" href="{% url 'mainapp:signout' %}"><i class="fas fa-sign-out-alt fa-2x"></i><BR>Signout</a>
+        </nav>
+    </header>
+
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Redirect Links</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="productionurl">
+                  <p>COMPLETE URL: https://www.itmr.co.in/endpages/Complete?PID=&#60;project_id&#62;&UID=XXXXX</p>
+                  <p>QUOTAFULL URL: https://www.itmr.co.in/endpages/Quotafull?PID=&#60;project_id&#62;&UID=XXXXX</p>
+                  <p>TERMINATE URL: https://www.itmr.co.in/endpages/Terminate?PID=&#60;project_id&#62;&UID=XXXXX</p>
+                </div>
+                <div class="modal-body" id="localurl">
+                    <p>COMPLETE URL: http://127.0.0.1:8000/endpages/Complete?PID=&#60;project_id&#62;&UID=XXXXX</p>
+                    <p>QUOTAFULL URL: http://127.0.0.1:8000/endpages/Quotafull?PID=&#60;project_id&#62;&UID=XXXXX</p>
+                    <p>TERMINATE URL: http://127.0.0.1:8000/endpages/Terminate?PID=&#60;project_id&#62;&UID=XXXXX</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary cancelBtn" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block body %} {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <!-- datapicker JS
+		============================================ -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    {% block javascript %} {% endblock %}
+    <script>
+      function loadredirecturl(){
+       if ((window.location.hostname) == '127.0.0.1' ){
+          document.getElementById('productionurl').style.display = 'none';
+          document.getElementById('localurl').style.display = 'block';
+       }
+       else{
+          document.getElementById('productionurl').style.display = 'block';
+          document.getElementById('localurl').style.display = 'none';
+       }
+      }
+      loadredirecturl();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}     
+{% block body %}
+<div class="container">
+    <form method="post" class="row g-3">{% csrf_token %}
+        <p style="font-size: 40px; color:rgb(0, 0, 0); font-weight: 600;">Are you sure you want to delete "{{ object }}"?</p>
+        <div class="col-md-2">
+            <button class="btn btn-danger" type="submit"> <i class="fas fa-check fa-3x"></i></button>
+            
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'mainapp:projectlist' %}"><button class="btn btn-info" type="button"> <i class="fas fa-times fa-3x"></i></button></a>
+
+        </div>
+        
+    </form>
+    
+</div>
+{% endblock %} 

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}     
+{% block body %}
+    <div class="container col-xl-6 col-xxl-6 px-4 py-5">
+      <div class="row align-items-center g-5 py-5">
+        <form class="p-5 border rounded-3 bg-light" action="{% url 'mainapp:changePassword' %}" method="POST">
+          {% csrf_token %}
+          <div class="form-floating mb-3">
+            <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label> -->
+            <!-- <label for="users">Select User Email</label> -->
+
+            <select name="users" id="users" class="form-control" required>
+              <option value="">Select Username</option>
+              {% for user in allusers %}
+              <option value="{{user.id}}">{{user.username}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingPassword" name="floatingPassword" placeholder="Password" required>
+            <label for="floatingPassword">New Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingConfirmPassword" name="floatingConfirmPassword" placeholder="Password" required>
+            <label for="floatingPassword">Confirm Password</label>
+          </div>
+          
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Change Password</button>
+        </form>
+      
+    {% endblock %}
+    {% block javascript %}
+    
+    <script>
+      $(document).ready(function() {
+        $("button[type='submit']").prop('disabled', true);
+        $(":text").keyup(function(){
+          if($("#floatingPassword").val().trim()!='' && $("#floatingPassword").val().trim() == $("#floatingConfirmPassword").val().trim()){
+            $("button[type='submit']").prop('disabled', false);
+          }
+        })
+      })
+    </script>
+    {% endblock %}
