@@ -34,7 +34,7 @@ if SERVER_TYPE == 'LOCALHOST':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['itmr.co.in','www.itmr.co.in','127.0.0.1' '139.59.29.229']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
