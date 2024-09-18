@@ -88,8 +88,8 @@ if SERVER_TYPE == 'LOCALHOST':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'itmrdb',
-            'USER': 'postgres',
+            'NAME': 'itmr',
+            'USER': 'itmruser',
             'PASSWORD': '12345678',
             'HOST': 'localhost',
             'PORT': '5432',
